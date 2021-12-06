@@ -26,12 +26,13 @@ void decodeBaudot() {
   // Serial.print(baudotCode[3]);
   // Serial.print(baudotCode[4]);
   // Serial.println("'");
-  // BaudotDecoder::printBits(baudotCode);
   BaudotDecoder::convertBitsToChar(baudotCode);
 }
 
 void setup() {
   Serial.begin(9600);
+  Keyboard.begin();
+
   Serial.println("Baudot-HID");
 
   pinMode(KEY_PRESSED, INPUT_PULLUP);

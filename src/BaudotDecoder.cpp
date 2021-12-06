@@ -21,6 +21,11 @@ char BaudotDecoder::_charsetHIGH[] = {
 unsigned int BaudotDecoder::_lastDecodedIndex = 0;
 int BaudotDecoder::charsetLevel = 0;
 
+void _print(char acter) {
+    Serial.print(acter);
+    Keyboard.print(acter);
+}
+
 char BaudotDecoder::convertBitsToChar(int* bits) { 
   _lastDecodedIndex = 0;
   
@@ -46,35 +51,35 @@ char BaudotDecoder::convertBitsToChar(int* bits) {
       case 2:
         if (charsetLevel == 0) {
             // RET CHAR
-            Serial.println();
+            _print('\r');
             return '\r';
         } else {
             // Backspace
-            Serial.println('\b');
+            _print('\b');
             return '\b';
         }
         break;
       case 22:
         if (charsetLevel == 1) {
-            Serial.print('É');
+            _print('É');
             return 'É';
         }
         break;
       case 18:
         if (charsetLevel == 1) {
-            Serial.print('*');
+            _print('*');
             return '*';
         }
         break;
       case 26:
         if (charsetLevel == 1) {
-            Serial.print('\a');
+            _print('\a');
             return '\a';
         }
         break;
       case 5:
         if (charsetLevel == 1) {
-            Serial.print('H');
+            _print('H');
             return 'H';
         }
         break;
@@ -86,7 +91,7 @@ char BaudotDecoder::convertBitsToChar(int* bits) {
   }
 
   if (charsetLevel == 1) {
-    Serial.print(_charsetHIGH[_lastDecodedIndex]);
+    _print(_charsetHIGH[_lastDecodedIndex]);
     return _charsetHIGH[_lastDecodedIndex];
   }
   Serial.print(_charsetLOW[_lastDecodedIndex]);

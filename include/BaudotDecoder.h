@@ -2,6 +2,7 @@
 #define BaudotDecoder_h
 
 #include <Arduino.h>
+#include <Keyboard.h>
 
 class BaudotDecoder {
   public:
